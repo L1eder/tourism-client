@@ -28,3 +28,11 @@ export const saveRoute = async (route: {
   const response = await api.post("/routes", route);
   return response.data;
 };
+
+export const updateRoute = async (
+  id: string,
+  route: { name: string; attractionIds: number[] }
+) => {
+  const response = await api.put(`/routes/${id}`, route);
+  return response.data;
+};
