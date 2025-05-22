@@ -31,31 +31,215 @@
         "lat": 55.751999,
         "lng": 37.617734
       }
+    },
+    {
+      "id": "3",
+      "name": "Красная площадь",
+      "description": "Сердце Москвы, известная своей историей и архитектурой.",
+      "category": "Историческое",
+      "district": "Центр",
+      "price": 0,
+      "images": [
+        "https://example.com/image5.jpg",
+        "https://example.com/image6.jpg"
+      ],
+      "location": {
+        "lat": 55.753215,
+        "lng": 37.622504
+      }
+    },
+    {
+      "id": "4",
+      "name": "Третьяковская галерея",
+      "description": "Одна из самых известных художественных галерей России.",
+      "category": "Культура",
+      "district": "Центр",
+      "price": 400,
+      "images": [
+        "https://example.com/image7.jpg",
+        "https://example.com/image8.jpg"
+      ],
+      "location": {
+        "lat": 55.738832,
+        "lng": 37.620055
+      }
+    },
+    {
+      "id": "5",
+      "name": "ВДНХ",
+      "description": "Выставка достижений народного хозяйства, известная своими павильонами и парками.",
+      "category": "Развлечение",
+      "district": "Северо-Восток",
+      "price": 0,
+      "images": [
+        "https://example.com/image9.jpg",
+        "https://example.com/image10.jpg"
+      ],
+      "location": {
+        "lat": 55.826407,
+        "lng": 37.634028
+      }
+    },
+    {
+      "id": "6",
+      "name": "Сад Эрмитаж",
+      "description": "Уютный парк в центре Москвы, идеально подходящий для прогулок.",
+      "category": "Парк",
+      "district": "Центр",
+      "price": 0,
+      "images": [
+        "https://example.com/image11.jpg",
+        "https://example.com/image12.jpg"
+      ],
+      "location": {
+        "lat": 55.7613,
+        "lng": 37.6162
+      }
+    },
+    {
+      "id": "7",
+      "name": "Пушкинский музей",
+      "description": "Музей изобразительных искусств, содержащий богатую коллекцию произведений искусства.",
+      "category": "Культура",
+      "district": "Центр",
+      "price": 500,
+      "images": [
+        "https://example.com/image13.jpg",
+        "https://example.com/image14.jpg"
+      ],
+      "location": {
+        "lat": 55.7486,
+        "lng": 37.6004
+      }
+    },
+    {
+      "id": "8",
+      "name": "Московский зоопарк",
+      "description": "Один из старейших зоопарков в Европе, с разнообразием животных.",
+      "category": "Развлечение",
+      "district": "Центр",
+      "price": 700,
+      "images": [
+        "https://example.com/image15.jpg",
+        "https://example.com/image16.jpg"
+      ],
+      "location": {
+        "lat": 55.7622,
+        "lng": 37.5889
+      }
+    },
+    {
+      "id": "9",
+      "name": "Новодевичий монастырь",
+      "description": "Исторический монастырь с красивой архитектурой и парком.",
+      "category": "Историческое",
+      "district": "Запад",
+      "price": 0,
+      "images": [
+        "https://example.com/image17.jpg",
+        "https://example.com/image18.jpg"
+      ],
+      "location": {
+        "lat": 55.7295,
+        "lng": 37.5574
+      }
+    },
+    {
+      "id": "10",
+      "name": "Коломенское",
+      "description": "Бывшая царская усадьба с музеями и парками на берегу Москвы-реки.",
+      "category": "Историческое",
+      "district": "Юго-Восток",
+      "price": 0,
+      "images": [
+        "https://example.com/image19.jpg",
+        "https://example.com/image20.jpg"
+      ],
+      "location": {
+        "lat": 55.6781,
+        "lng": 37.6791
+      }
+    },
+    {
+      "id": "11",
+      "name": "Музей космонавтики",
+      "description": "Музей, посвящённый истории освоения космоса.",
+      "category": "Культура",
+      "district": "Юго-Восток",
+      "price": 350,
+      "images": [
+        "https://example.com/image21.jpg",
+        "https://example.com/image22.jpg"
+      ],
+      "location": {
+        "lat": 55.7522,
+        "lng": 37.6156
+      }
+    },
+    {
+      "id": "12",
+      "name": "Большой театр",
+      "description": "Знаменитый театр оперы и балета с богатой историей.",
+      "category": "Культура",
+      "district": "Центр",
+      "price": 1000,
+      "images": [
+        "https://example.com/image23.jpg",
+        "https://example.com/image24.jpg"
+      ],
+      "location": {
+        "lat": 55.7601,
+        "lng": 37.6189
+      }
+    },
+    {
+      "id": "13",
+      "name": "Парк Царицыно",
+      "description": "Большой исторический парк с дворцом и прудами.",
+      "category": "Парк",
+      "district": "Юг",
+      "price": 0,
+      "images": [
+        "https://example.com/image25.jpg",
+        "https://example.com/image26.jpg"
+      ],
+      "location": {
+        "lat": 55.626,
+        "lng": 37.6795
+      }
+    },
+    {
+      "id": "14",
+      "name": "Музей изобразительных искусств имени А.С. Пушкина",
+      "description": "Один из крупнейших художественных музеев России.",
+      "category": "Культура",
+      "district": "Центр",
+      "price": 450,
+      "images": [
+        "https://example.com/image27.jpg",
+        "https://example.com/image28.jpg"
+      ],
+      "location": {
+        "lat": 55.7473,
+        "lng": 37.6006
+      }
+    },
+    {
+      "id": "15",
+      "name": "Парк Победы",
+      "description": "Парк, посвящённый победе в Великой Отечественной войне, с мемориалами и музеями.",
+      "category": "Парк",
+      "district": "Запад",
+      "price": 0,
+      "images": [
+        "https://example.com/image29.jpg",
+        "https://example.com/image30.jpg"
+      ],
+      "location": {
+        "lat": 55.73,
+        "lng": 37.485
+      }
     }
   ],
-  "routes": [
-    {
-      "id": "505d",
-      "name": "Первый марштурик",
-      "attractionIds": [
-        "1",
-        "2"
-      ]
-    },
-    {
-      "name": "А",
-      "attractionIds": [
-        "2"
-      ],
-      "id": "cfbd"
-    },
-    {
-      "name": "Абракадабра1",
-      "attractionIds": [
-        "2",
-        "1"
-      ],
-      "id": "5529"
-    }
-  ]
+  "routes": []
 }
