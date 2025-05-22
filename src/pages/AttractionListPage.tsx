@@ -1,4 +1,3 @@
-// src/pages/AttractionListPage.tsx
 import React, { useState, useEffect } from "react";
 import { fetchAttractions } from "../services/api";
 import { Link } from "react-router-dom";
@@ -20,7 +19,7 @@ const AttractionListPage: React.FC = () => {
 
   useEffect(() => {
     const loadAttractions = async () => {
-      const data = await fetchAttractions(); // Используем функцию для получения данных
+      const data = await fetchAttractions();
       setAttractions(data);
     };
     loadAttractions();
@@ -70,6 +69,7 @@ const AttractionListPage: React.FC = () => {
           </li>
         ))}
       </ul>
+      <Link to="/route">Перейти к моему маршруту</Link>
     </div>
   );
 };

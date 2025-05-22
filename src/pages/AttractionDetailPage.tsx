@@ -1,7 +1,7 @@
-// src/pages/AttractionDetailPage.tsx
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { fetchAttractionById } from "../services/api"; // Импортируем функцию из api.ts
+import { useParams, Link } from "react-router-dom";
+import { fetchAttractionById } from "../services/api";
+import ImageGallery from "../components/ImageGallery";
 
 interface Attraction {
   id: number;
@@ -18,11 +18,25 @@ const AttractionDetailPage: React.FC = () => {
   useEffect(() => {
     const loadAttraction = async () => {
       if (!id) return;
-      const data = await fetchAttractionById(Number(id)); // Используем функцию для получения данных
+      const data = await fetchAttractionById(Number(id));
       setAttraction(data);
     };
     loadAttraction();
   }, [id]);
+
+  const handleAddToRoute = () => {
+    if (attraction) {
+      const currentRoute = localStorage.getItem("route");
+      const route = currentRoute ? JSON.parse(currentRoute) : [];
+      if (!route.some((item: Attraction) => item.id === attraction.id)) {
+        route.push(attraction);
+        localStorage.setItem("route", JSON.stringify(route));
+        alert(`${attraction.name} добавлена в маршрут!`);
+      } else {
+        alert(`${attraction.name} уже в маршруте!`);
+      }
+    }
+  };
 
   if (!attraction) return <p>Загрузка...</p>;
 
@@ -30,22 +44,13 @@ const AttractionDetailPage: React.FC = () => {
     <div>
       <h1>{attraction.name}</h1>
       <p>{attraction.description}</p>
-      <div>
-        <h2>Галерея</h2>
-        {attraction.images.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            alt={attraction.name}
-            style={{ width: "200px", margin: "10px" }}
-          />
-        ))}
-      </div>
+      <ImageGallery images={attraction.images} alt={attraction.name} />
       <h2>Локация</h2>
       <p>
         Широта: {attraction.location.lat}, Долгота: {attraction.location.lng}
       </p>
-      {/* Здесь можно добавить интеграцию с картами, например, Google Maps */}
+      <button onClick={handleAddToRoute}>Добавить в маршрут</button>
+      <Link to="/">Назад к списку достопримечательностей</Link>
     </div>
   );
 };

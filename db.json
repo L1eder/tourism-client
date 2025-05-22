@@ -11,7 +11,10 @@
         "https://example.com/image1.jpg",
         "https://example.com/image2.jpg"
       ],
-      "location": { "lat": 55.751244, "lng": 37.618423 }
+      "location": {
+        "lat": 55.751244,
+        "lng": 37.618423
+      }
     },
     {
       "id": 2,
@@ -24,7 +27,11 @@
         "https://example.com/image3.jpg",
         "https://example.com/image4.jpg"
       ],
-      "location": { "lat": 55.751999, "lng": 37.617734 }
+      "location": {
+        "lat": 55.751999,
+        "lng": 37.617734
+      }
     }
-  ]
+  ],
+  "routes": []
 }
