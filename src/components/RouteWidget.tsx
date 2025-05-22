@@ -31,7 +31,6 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
   const [routeName, setRouteName] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [savedRoutes, setSavedRoutes] = useState<Route[]>([]);
-  const [selectedRouteId, setSelectedRouteId] = useState<number | null>(null);
 
   useEffect(() => {
     const loadAttractions = async () => {
@@ -74,28 +73,6 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
     onRouteChange?.(newRouteIds);
   };
 
-  const moveUp = (index: number) => {
-    if (index === 0) return;
-    const newRouteIds = [...routeIds];
-    [newRouteIds[index - 1], newRouteIds[index]] = [
-      newRouteIds[index],
-      newRouteIds[index - 1],
-    ];
-    setRouteIds(newRouteIds);
-    onRouteChange?.(newRouteIds);
-  };
-
-  const moveDown = (index: number) => {
-    if (index === routeIds.length - 1) return;
-    const newRouteIds = [...routeIds];
-    [newRouteIds[index], newRouteIds[index + 1]] = [
-      newRouteIds[index + 1],
-      newRouteIds[index],
-    ];
-    setRouteIds(newRouteIds);
-    onRouteChange?.(newRouteIds);
-  };
-
   const save = async () => {
     if (!routeName.trim()) {
       setError("Введите имя маршрута");
@@ -106,9 +83,8 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
       setError(null);
       alert("Маршрут сохранён");
       onSaved?.();
-      // Обновим список маршрутов после сохранения
-      const routes = await fetchRoutes();
-      setSavedRoutes(routes);
+      setRouteIds([]); // Очистить маршрут после сохранения
+      setRouteName(""); // Очистить имя маршрута
     } catch {
       setError("Ошибка при сохранении маршрута");
     }
@@ -118,7 +94,7 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
     const route = savedRoutes.find((r) => r.id === routeId);
     if (route) {
       setRouteIds(route.attractionIds);
-      setSelectedRouteId(routeId);
+      setRouteName(route.name);
       onRouteChange?.(route.attractionIds);
     }
   };
@@ -132,20 +108,7 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
         <ul>
           {savedRoutes.map((route) => (
             <li key={route.id}>
-              <button
-                style={{
-                  fontWeight: route.id === selectedRouteId ? "bold" : "normal",
-                  cursor: "pointer",
-                  background: "none",
-                  border: "none",
-                  textDecoration: "underline",
-                  color: "blue",
-                  padding: 0,
-                }}
-                onClick={() => loadRoute(route.id)}
-              >
-                {route.name}
-              </button>
+              <button onClick={() => loadRoute(route.id)}>{route.name}</button>
             </li>
           ))}
         </ul>
@@ -169,29 +132,10 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
         <p>Маршрут пуст. Добавьте достопримечательности.</p>
       )}
       <ul>
-        {routeIds.map((id, index) => (
-          <li key={id} style={{ marginBottom: "8px" }}>
+        {routeIds.map((id) => (
+          <li key={id}>
             {attractionsMap[id]?.name || "Загрузка..."}
-            <button
-              onClick={() => moveUp(index)}
-              disabled={index === 0}
-              style={{ marginLeft: 10 }}
-            >
-              ↑
-            </button>
-            <button
-              onClick={() => moveDown(index)}
-              disabled={index === routeIds.length - 1}
-              style={{ marginLeft: 5 }}
-            >
-              ↓
-            </button>
-            <button
-              onClick={() => removeAttraction(id)}
-              style={{ marginLeft: 5 }}
-            >
-              Удалить
-            </button>
+            <button onClick={() => removeAttraction(id)}>Удалить</button>
           </li>
         ))}
       </ul>
@@ -199,7 +143,7 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
       <h3>Все достопримечательности</h3>
       <ul>
         {Object.values(attractionsMap).map((a) => (
-          <li key={a.id} style={{ marginBottom: "6px" }}>
+          <li key={a.id}>
             {a.name}{" "}
             <button
               disabled={routeIds.includes(a.id)}
