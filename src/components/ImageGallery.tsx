@@ -4,8 +4,8 @@ import "../styles/ImageGallery.css";
 interface ImageGalleryProps {
   images: string[];
   alt?: string;
-  width?: number; // маленький размер для миниатюр
-  enlargedWidth?: number; // размер для увеличенного изображения
+  width?: number;
+  enlargedWidth?: number;
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({
@@ -17,17 +17,17 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const openModal = (img: string) => {
-    console.log("Opening modal with image:", img); // Логируем открытие модального окна
+    console.log("Opening modal with image:", img);
     setSelectedImage(img);
   };
 
   const closeModal = () => {
-    console.log("Closing modal"); // Логируем закрытие модального окна
+    console.log("Closing modal");
     setSelectedImage(null);
   };
 
   if (images.length === 0) {
-    return <p>Нет изображений для отображения.</p>; // Проверка на наличие изображений
+    return <p>Нет изображений для отображения.</p>;
   }
 
   return (
@@ -39,7 +39,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
           alt={alt || `image-${index}`}
           className="gallery-image m-2"
           style={{ width: `${width}px`, objectFit: "cover", cursor: "pointer" }}
-          onClick={() => openModal(img)} // Обработчик клика
+          onClick={() => openModal(img)}
         />
       ))}
 
