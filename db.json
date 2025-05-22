@@ -18,20 +18,55 @@
     },
     {
       "id": 2,
-      "name": "Московский Кремль",
-      "description": "Исторический комплекс, включающий в себя несколько музеев и соборов.",
-      "category": "Историческое",
+      "name": "Красная площадь",
+      "description": "Историческая площадь в центре Москвы.",
+      "category": "Площадь",
       "district": "Центр",
-      "price": 500,
+      "price": 0,
       "images": [
         "https://example.com/image3.jpg",
         "https://example.com/image4.jpg"
       ],
       "location": {
-        "lat": 55.751999,
-        "lng": 37.617734
+        "lat": 55.7558,
+        "lng": 37.6173
+      }
+    },
+    {
+      "id": 3,
+      "name": "Московский Кремль",
+      "description": "Исторический комплекс, включающий в себя несколько музеев и соборов.",
+      "category": "Крепость",
+      "district": "Центр",
+      "price": 500,
+      "images": [
+        "https://example.com/image5.jpg",
+        "https://example.com/image6.jpg"
+      ],
+      "location": {
+        "lat": 55.752023,
+        "lng": 37.617499
       }
     }
   ],
-  "routes": []
+  "routes": [
+    {
+      "id": 1,
+      "name": "Мой маршрут",
+      "attractionIds": [
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "1538",
+      "name": "Фвы",
+      "attractionIds": [
+        3,
+        2,
+        1
+      ]
+    }
+  ]
 }

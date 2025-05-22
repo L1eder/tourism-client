@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import axios from "axios";
+import RouteWidget from "../components/RouteWidget";
 import "leaflet/dist/leaflet.css";
+import { fetchAttractions } from "../services/api";
 
 interface Attraction {
   id: number;
@@ -11,38 +12,67 @@ interface Attraction {
 }
 
 const RoutePage: React.FC = () => {
-  const [route, setRoute] = useState<Attraction[]>(() => {
-    const savedRoute = localStorage.getItem("route");
-    return savedRoute ? JSON.parse(savedRoute) : [];
-  });
+  const [route, setRoute] = useState<Attraction[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const [routeName, setRouteName] = useState("");
-
-  const handleRemoveAttraction = (id: number) => {
-    const updatedRoute = route.filter((attraction) => attraction.id !== id);
-    setRoute(updatedRoute);
-    localStorage.setItem("route", JSON.stringify(updatedRoute));
+  // Загружаем маршрут с сервера
+  const fetchRoute = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch("http://localhost:3001/routes");
+      if (!response.ok) throw new Error("Ошибка при загрузке маршрута");
+      const data = await response.json();
+      setRoute(data.attractions || []); // Предполагается, что сервер возвращает массив attractions
+    } catch (e) {
+      setError("Ошибка загрузки маршрута");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleSaveRoute = async () => {
-    if (routeName.trim() === "") {
-      alert("Пожалуйста, введите имя маршрута.");
+  // Обновление маршрута на сервере
+  const updateRouteOnServer = async (routeIds: number[]) => {
+    try {
+      await fetch("http://localhost:3001/routes", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ attractions: routeIds }),
+      });
+    } catch (e) {
+      console.error("Ошибка при обновлении маршрута на сервере", e);
+    }
+  };
+
+  const handleRouteChange = async (routeIds: number[]) => {
+    if (routeIds.length === 0) {
+      setRoute([]);
       return;
     }
-
     try {
-      const response = await axios.post("http://localhost:3001/routes", {
-        name: routeName,
-        attractions: route,
-      });
-      alert("Маршрут сохранен!");
-      console.log(response.data);
-    } catch (error) {
-      console.error("Ошибка при сохранении маршрута:", error);
-      alert("Произошла ошибка при сохранении маршрута.");
+      const attractions = await fetchAttractionsByIds(routeIds);
+      setRoute(attractions);
+      await updateRouteOnServer(routeIds); // Обновляем маршрут на сервере
+    } catch {
+      setRoute([]);
+      alert("Ошибка загрузки достопримечательностей");
     }
   };
 
+  const fetchAttractionsByIds = async (
+    ids: number[]
+  ): Promise<Attraction[]> => {
+    const response = await fetch("http://localhost:3001/attractions");
+    if (!response.ok)
+      throw new Error("Ошибка при загрузке достопримечательностей");
+    const allAttractions: Attraction[] = await response.json();
+    return allAttractions.filter((a) => ids.includes(a.id));
+  };
+
+  // Вычисление расстояния между точками
   const haversineDistance = (
     lat1: number,
     lon1: number,
@@ -50,7 +80,7 @@ const RoutePage: React.FC = () => {
     lon2: number
   ) => {
     const toRad = (value: number) => (value * Math.PI) / 180;
-    const R = 6371;
+    const R = 6371; // Радиус Земли в км
     const dLat = toRad(lat2 - lat1);
     const dLon = toRad(lon2 - lon1);
     const a =
@@ -60,7 +90,7 @@ const RoutePage: React.FC = () => {
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
+    return R * c; // Возвращаем расстояние в км
   };
 
   const totalDistance = () => {
@@ -76,27 +106,21 @@ const RoutePage: React.FC = () => {
     return distance.toFixed(2);
   };
 
+  useEffect(() => {
+    fetchRoute();
+  }, []);
+
+  if (loading) return <p>Загрузка маршрута...</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
+
   return (
     <div>
       <h1>Ваш маршрут</h1>
-      <input
-        type="text"
-        placeholder="Введите имя маршрута"
-        value={routeName}
-        onChange={(e) => setRouteName(e.target.value)}
+      <RouteWidget
+        onSaved={() => alert("Маршрут сохранён")}
+        onRouteChange={handleRouteChange}
       />
-      <button onClick={handleSaveRoute}>Сохранить маршрут</button>
       <p>Общая длина маршрута: {totalDistance()} км</p>
-      <ul>
-        {route.map((attraction) => (
-          <li key={attraction.id}>
-            {attraction.name}
-            <button onClick={() => handleRemoveAttraction(attraction.id)}>
-              Удалить
-            </button>
-          </li>
-        ))}
-      </ul>
       <MapContainer
         center={[55.751244, 37.618423]}
         zoom={12}

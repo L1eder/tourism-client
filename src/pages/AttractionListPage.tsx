@@ -49,18 +49,21 @@ const AttractionListPage: React.FC = () => {
         placeholder="Поиск по району"
         value={searchDistrict}
         onChange={(e) => setSearchDistrict(e.target.value)}
+        style={{ marginRight: "10px" }}
       />
       <input
         type="text"
         placeholder="Поиск по категории"
         value={searchCategory}
         onChange={(e) => setSearchCategory(e.target.value)}
+        style={{ marginRight: "10px" }}
       />
       <input
         type="number"
         placeholder="Максимальная стоимость"
         value={searchPrice}
         onChange={(e) => setSearchPrice(e.target.value)}
+        style={{ marginRight: "10px" }}
       />
       <ul>
         {filteredAttractions.map((attraction) => (
