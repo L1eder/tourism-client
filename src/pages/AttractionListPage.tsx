@@ -16,16 +16,25 @@ const AttractionListPage: React.FC = () => {
   const [searchDistrict, setSearchDistrict] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
   const [searchPrice, setSearchPrice] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const loadAttractions = async () => {
-      const data = await fetchAttractions();
-      setAttractions(data);
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await fetchAttractions();
+        setAttractions(data);
+      } catch {
+        setError("Ошибка загрузки достопримечательностей");
+      } finally {
+        setLoading(false);
+      }
     };
     loadAttractions();
   }, []);
 
-  // Получаем уникальные районы и категории
   const uniqueDistricts = Array.from(
     new Set(attractions.map((a) => a.district))
   ).sort();
@@ -41,62 +50,87 @@ const AttractionListPage: React.FC = () => {
     );
   });
 
+  if (loading)
+    return (
+      <div className="text-center my-4">
+        <div className="spinner-border" role="status" />
+        <p>Загрузка достопримечательностей...</p>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="text-center text-danger my-4">
+        <p>{error}</p>
+      </div>
+    );
+
   return (
-    <div>
+    <div className="container my-4">
       <h1>Достопримечательности</h1>
 
-      <label>
-        Район:{" "}
-        <select
-          value={searchDistrict}
-          onChange={(e) => setSearchDistrict(e.target.value)}
-          style={{ marginRight: "10px" }}
-        >
-          <option value="">Все</option>
-          {uniqueDistricts.map((district) => (
-            <option key={district} value={district}>
-              {district}
-            </option>
+      <div className="mb-3 d-flex flex-wrap gap-3 align-items-center">
+        <label>
+          Район:{" "}
+          <select
+            value={searchDistrict}
+            onChange={(e) => setSearchDistrict(e.target.value)}
+            className="form-select"
+          >
+            <option value="">Все</option>
+            {uniqueDistricts.map((district) => (
+              <option key={district} value={district}>
+                {district}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Категория:{" "}
+          <select
+            value={searchCategory}
+            onChange={(e) => setSearchCategory(e.target.value)}
+            className="form-select"
+          >
+            <option value="">Все</option>
+            {uniqueCategories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Максимальная стоимость:{" "}
+          <input
+            type="number"
+            placeholder="Максимальная стоимость"
+            value={searchPrice}
+            onChange={(e) => setSearchPrice(e.target.value)}
+            className="form-control"
+            min={0}
+            style={{ width: 150 }}
+          />
+        </label>
+      </div>
+
+      {filteredAttractions.length === 0 ? (
+        <p>Достопримечательности не найдены.</p>
+      ) : (
+        <ul className="list-group">
+          {filteredAttractions.map((attraction) => (
+            <li key={attraction.id} className="list-group-item">
+              <Link to={`/attraction/${attraction.id}`}>{attraction.name}</Link>
+            </li>
           ))}
-        </select>
-      </label>
+        </ul>
+      )}
 
-      <label>
-        Категория:{" "}
-        <select
-          value={searchCategory}
-          onChange={(e) => setSearchCategory(e.target.value)}
-          style={{ marginRight: "10px" }}
-        >
-          <option value="">Все</option>
-          {uniqueCategories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label>
-        Максимальная стоимость:{" "}
-        <input
-          type="number"
-          placeholder="Максимальная стоимость"
-          value={searchPrice}
-          onChange={(e) => setSearchPrice(e.target.value)}
-          style={{ marginRight: "10px" }}
-          min={0}
-        />
-      </label>
-
-      <ul>
-        {filteredAttractions.map((attraction) => (
-          <li key={attraction.id}>
-            <Link to={`/attraction/${attraction.id}`}>{attraction.name}</Link>
-          </li>
-        ))}
-      </ul>
-      <Link to="/route">Перейти к моему маршруту</Link>
+      <Link to="/route" className="btn btn-primary mt-3">
+        Перейти к моему маршруту
+      </Link>
     </div>
   );
 };

@@ -12,13 +12,14 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
   width = 200,
 }) => {
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
+    <div className="d-flex flex-wrap">
       {images.map((img, index) => (
         <img
           key={index}
           src={img}
           alt={alt || `image-${index}`}
-          style={{ width: width, margin: "10px", objectFit: "cover" }}
+          className="m-2"
+          style={{ width: width, objectFit: "cover" }}
         />
       ))}
     </div>

@@ -13,13 +13,18 @@ const MyRoutesPage: React.FC = () => {
   const [selectedRoute, setSelectedRoute] = useState<Route | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isCreating, setIsCreating] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const loadRoutes = async () => {
+    setLoading(true);
+    setError(null);
     try {
       const data = await fetchRoutes();
       setRoutes(data);
     } catch {
       setError("Ошибка загрузки маршрутов");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -27,20 +32,16 @@ const MyRoutesPage: React.FC = () => {
     loadRoutes();
   }, []);
 
-  // Сохраняем маршрут (создание или обновление)
   const handleSave = async (name: string, attractionIds: number[]) => {
     setError(null);
     try {
       if (selectedRoute) {
-        // Обновление маршрута — PUT если поддерживается, иначе удаляем и создаём заново
-        // Предположим, что API поддерживает PUT /routes/:id
         await fetch(`http://localhost:3001/routes/${selectedRoute.id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, attractionIds }),
         });
       } else {
-        // Создание нового маршрута
         await saveRoute({ name, attractionIds });
       }
       await loadRoutes();
@@ -67,22 +68,38 @@ const MyRoutesPage: React.FC = () => {
     setIsCreating(false);
   };
 
+  if (loading)
+    return (
+      <div className="text-center my-4">
+        <div className="spinner-border" role="status" />
+        <p>Загрузка маршрутов...</p>
+      </div>
+    );
+
   return (
-    <div>
+    <div className="container my-4">
       <h1>Мои маршруты</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="text-danger">{error}</p>}
 
       {!selectedRoute && !isCreating && (
         <>
-          <button onClick={handleCreate}>Создать маршрут</button>
+          <button onClick={handleCreate} className="btn btn-primary mb-3">
+            Создать маршрут
+          </button>
           {routes.length === 0 ? (
             <p>Нет сохранённых маршрутов</p>
           ) : (
-            <ul>
+            <ul className="list-group">
               {routes.map((route) => (
-                <li key={route.id}>
-                  <b>{route.name}</b>{" "}
-                  <button onClick={() => handleEdit(route)}>
+                <li
+                  key={route.id}
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  <b>{route.name}</b>
+                  <button
+                    onClick={() => handleEdit(route)}
+                    className="btn btn-sm btn-outline-primary"
+                  >
                     Редактировать
                   </button>
                 </li>

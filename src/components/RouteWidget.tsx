@@ -29,9 +29,12 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
   >({});
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadAttractions = async () => {
+      setLoading(true);
+      setError(null);
       try {
         const allAttractions = await fetchAttractions();
         const map: Record<number, Attraction> = {};
@@ -41,12 +44,13 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
         setAttractionsMap(map);
       } catch {
         setError("Ошибка загрузки достопримечательностей");
+      } finally {
+        setLoading(false);
       }
     };
     loadAttractions();
   }, []);
 
-  // Добавление, удаление и перестановка достопримечательностей
   const addAttraction = (id: number) => {
     if (!routeIds.includes(id)) {
       setRouteIds([...routeIds, id]);
@@ -77,7 +81,6 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
     setRouteIds(newRouteIds);
   };
 
-  // Вычисление расстояния
   const haversineDistance = (
     lat1: number,
     lon1: number,
@@ -112,7 +115,6 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
     return distance.toFixed(2);
   };
 
-  // Сохранение маршрута
   const handleSave = async () => {
     if (!routeName.trim()) {
       setError("Введите имя маршрута");
@@ -130,70 +132,89 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
     }
   };
 
+  if (loading) {
+    return (
+      <div className="text-center my-4">
+        <div className="spinner-border" role="status" />
+        <p>Загрузка достопримечательностей...</p>
+      </div>
+    );
+  }
+
   return (
-    <div>
+    <div className="container mt-4">
       <h3>Создание / Редактирование маршрута</h3>
       <input
         placeholder="Имя маршрута"
         value={routeName}
         onChange={(e) => setRouteName(e.target.value)}
-        style={{ marginBottom: "10px", padding: "5px", width: "250px" }}
+        className="form-control mb-3"
+        style={{ maxWidth: 400 }}
       />
       <button
         onClick={handleSave}
         disabled={saving}
-        style={{ marginLeft: "10px" }}
+        className="btn btn-primary me-2"
       >
         {saving ? "Сохраняем..." : "Сохранить маршрут"}
       </button>
       {onCancel && (
-        <button onClick={onCancel} style={{ marginLeft: "10px" }}>
+        <button onClick={onCancel} className="btn btn-secondary">
           Отмена
         </button>
       )}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="text-danger mt-2">{error}</p>}
 
-      <h3>Маршрут</h3>
+      <h4 className="mt-4">Маршрут</h4>
       {routeIds.length === 0 ? (
         <p>Маршрут пуст. Добавьте достопримечательности.</p>
       ) : (
-        <ul>
+        <ul className="list-group mb-3" style={{ maxWidth: 500 }}>
           {routeIds.map((id, index) => (
-            <li key={id} style={{ marginBottom: "8px" }}>
+            <li
+              key={id}
+              className="list-group-item d-flex justify-content-between align-items-center"
+            >
               {attractionsMap[id]?.name || "Загрузка..."}
-              <button
-                onClick={() => moveUp(index)}
-                disabled={index === 0}
-                style={{ marginLeft: 10 }}
-              >
-                ↑
-              </button>
-              <button
-                onClick={() => moveDown(index)}
-                disabled={index === routeIds.length - 1}
-                style={{ marginLeft: 5 }}
-              >
-                ↓
-              </button>
-              <button
-                onClick={() => removeAttraction(id)}
-                style={{ marginLeft: 5 }}
-              >
-                Удалить
-              </button>
+              <div>
+                <button
+                  onClick={() => moveUp(index)}
+                  disabled={index === 0}
+                  className="btn btn-sm btn-outline-secondary me-1"
+                >
+                  ↑
+                </button>
+                <button
+                  onClick={() => moveDown(index)}
+                  disabled={index === routeIds.length - 1}
+                  className="btn btn-sm btn-outline-secondary me-1"
+                >
+                  ↓
+                </button>
+                <button
+                  onClick={() => removeAttraction(id)}
+                  className="btn btn-sm btn-danger"
+                >
+                  Удалить
+                </button>
+              </div>
             </li>
           ))}
         </ul>
       )}
 
-      <h3>Все достопримечательности</h3>
-      <ul>
+      <h4>Все достопримечательности</h4>
+      <ul className="list-group" style={{ maxWidth: 500 }}>
         {Object.values(attractionsMap).map((a) => (
-          <li key={a.id} style={{ marginBottom: "6px" }}>
-            {a.name}{" "}
+          <li
+            key={a.id}
+            className="list-group-item d-flex justify-content-between align-items-center"
+          >
+            {a.name}
             <button
               disabled={routeIds.includes(a.id)}
               onClick={() => addAttraction(a.id)}
+              className="btn btn-sm btn-success"
             >
               Добавить
             </button>
@@ -201,12 +222,12 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
         ))}
       </ul>
 
-      <h4>Общая длина маршрута: {totalDistance()} км</h4>
+      <h5 className="mt-3">Общая длина маршрута: {totalDistance()} км</h5>
 
       <MapContainer
         center={[55.751244, 37.618423]}
         zoom={12}
-        style={{ height: "400px", width: "100%" }}
+        style={{ height: "400px", width: "100%", marginTop: "20px" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

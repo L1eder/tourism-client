@@ -36,43 +36,40 @@ const AttractionDetailPage: React.FC = () => {
     loadAttraction();
   }, [id]);
 
-  const handleAddToRoute = async () => {
-    if (!attraction) return;
+  if (loading)
+    return (
+      <div className="text-center my-4">
+        <div className="spinner-border" role="status" />
+        <p>Загрузка...</p>
+      </div>
+    );
 
-    try {
-      const response = await fetch("http://localhost:3001/routes");
-      const routeData = await response.json();
-      const currentRouteIds = routeData.attractions || [];
+  if (error)
+    return (
+      <div className="text-center text-danger my-4">
+        <p>{error}</p>
+      </div>
+    );
 
-      if (!currentRouteIds.includes(attraction.id)) {
-        currentRouteIds.push(attraction.id);
-        await fetch("http://localhost:3001/routes", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ attractions: currentRouteIds }),
-        });
-        alert(`${attraction.name} добавлена в маршрут!`);
-      } else {
-        alert(`${attraction.name} уже в маршруте!`);
-      }
-    } catch (error) {
-      console.error("Ошибка при добавлении в маршрут", error);
-      alert("Не удалось добавить достопримечательность в маршрут");
-    }
-  };
-
-  if (loading) return <p>Загрузка...</p>;
-  if (error) return <p style={{ color: "red" }}>{error}</p>;
-  if (!attraction) return <p>Достопримечательность не найдена</p>;
+  if (!attraction)
+    return (
+      <div className="text-center my-4">
+        <p>Достопримечательность не найдена</p>
+      </div>
+    );
 
   return (
-    <div>
+    <div className="container my-4">
       <h1>{attraction.name}</h1>
       <p>{attraction.description}</p>
-      <ImageGallery images={attraction.images} alt={attraction.name} />
-      <h2>Локация</h2>
+
+      <ImageGallery
+        images={attraction.images}
+        alt={attraction.name}
+        width={300}
+      />
+
+      <h2 className="mt-4">Локация</h2>
       <MapContainer
         center={[attraction.location.lat, attraction.location.lng]}
         zoom={15}
@@ -88,7 +85,9 @@ const AttractionDetailPage: React.FC = () => {
       </MapContainer>
 
       <br />
-      <Link to="/">Назад к списку достопримечательностей</Link>
+      <Link to="/" className="btn btn-link">
+        Назад к списку достопримечательностей
+      </Link>
     </div>
   );
 };
