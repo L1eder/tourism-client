@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchAttractions } from "../services/api";
 import { Link } from "react-router-dom";
+import "../styles/AttractionListPage.css";
 
 interface Attraction {
   id: number;

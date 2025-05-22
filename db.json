@@ -8,8 +8,8 @@
       "district": "Центр",
       "price": 0,
       "images": [
-        "https://example.com/image1.jpg",
-        "https://example.com/image2.jpg"
+        "https://cdn.tripster.ru/thumbs2/cdaef6d4-c926-11ee-b002-12fce4afbd64.1220x600.jpeg",
+        "https://parks.moscow/wp-content/uploads/2023/12/park-gorkogo.jpg"
       ],
       "location": {
         "lat": 55.751244,
@@ -244,13 +244,7 @@
   "routes": [
     {
       "name": "Гуляю по Москве",
-      "attractionIds": [
-        "4",
-        "11",
-        "10",
-        "13",
-        "14"
-      ],
+      "attractionIds": ["4", "11", "10", "13", "14"],
       "id": "c7df"
     }
   ]

@@ -4,6 +4,7 @@ import { fetchAttractionById } from "../services/api";
 import ImageGallery from "../components/ImageGallery";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import "../styles/AttractionDetailPage.css"; // Импортируем стили
 
 interface Attraction {
   id: number;

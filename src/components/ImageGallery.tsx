@@ -1,4 +1,5 @@
 import React from "react";
+import "../styles/ImageGallery.css";
 
 interface ImageGalleryProps {
   images: string[];
@@ -12,13 +13,13 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
   width = 200,
 }) => {
   return (
-    <div className="d-flex flex-wrap">
+    <div className="image-gallery d-flex flex-wrap">
       {images.map((img, index) => (
         <img
           key={index}
           src={img}
           alt={alt || `image-${index}`}
-          className="m-2"
+          className="gallery-image m-2"
           style={{ width: width, objectFit: "cover" }}
         />
       ))}

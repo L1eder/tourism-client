@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { fetchAttractions } from "../services/api";
+import "../styles/RouteWidget.css"; // Импортируем стили
 
 interface Attraction {
   id: number;
@@ -142,7 +143,7 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
   }
 
   return (
-    <div className="container mt-4">
+    <div className="route-widget container mt-4">
       <h3>Создание / Редактирование маршрута</h3>
       <input
         placeholder="Имя маршрута"

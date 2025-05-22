@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchRoutes, saveRoute } from "../services/api";
 import RouteWidget from "../components/RouteWidget";
+import "../styles/MyRoutesPage.css"; // Импортируем стили
 
 interface Route {
   id: string;
