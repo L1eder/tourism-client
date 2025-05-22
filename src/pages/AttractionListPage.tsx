@@ -130,7 +130,7 @@ const AttractionListPage: React.FC = () => {
       )}
 
       <Link to="/route" className="btn btn-primary mt-3">
-        Перейти к моему маршруту
+        Перейти к моим маршрутам
       </Link>
     </div>
   );

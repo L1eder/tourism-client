@@ -1,8 +1,71 @@
 .image-gallery {
-  display: flex;
-  flex-wrap: wrap;
+  /* Можно добавить свои стили для галереи */
 }
 
-.gallery-image {
-  margin: 0.5rem;
+/* Модальное окно */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.8);
+
+  z-index: 1050;
+}
+
+/* Контейнер диалога */
+.modal-dialog {
+  max-width: none;
+  width: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: auto;
+}
+
+/* Содержимое модального окна */
+.modal-content {
+  background: #fff;
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Кнопка закрытия */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  font-size: 30px;
+  color: black;
+
+  background: rgba(255, 255, 255, 0.7); /* Подложка для крестика */
+  border: none;
+  border-radius: 4px; /* Немного закругление для кнопки */
+  cursor: pointer;
+  padding: 3px; /* Уменьшили отступы для кнопки */
+  z-index: 10;
+}
+
+/* Тело модалки с изображением */
+.modal-body {
+  text-align: center;
+  padding: 1rem;
+}
+
+.modal-body img {
+  max-width: 90vw;
+  max-height: 90vh;
+  display: block;
+  margin: 0 auto;
 }

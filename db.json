@@ -24,8 +24,8 @@
       "district": "Центр",
       "price": 500,
       "images": [
-        "https://example.com/image3.jpg",
-        "https://example.com/image4.jpg"
+        "https://puteshestvyie.ru/sites/default/files/izo/arhitektura-dostoprimechatelnosti-moskvi-0-1.jpg",
+        "https://putidorogi-nn.ru/images/stories/evropa/moskovskiy_kreml_7.jpg"
       ],
       "location": {
         "lat": 55.751999,
@@ -40,8 +40,8 @@
       "district": "Центр",
       "price": 0,
       "images": [
-        "https://example.com/image5.jpg",
-        "https://example.com/image6.jpg"
+        "https://cdn.tripster.ru/thumbs2/414af0ec-6806-11ef-953c-ea9754a6d4c5.1220x600.jpeg",
+        "https://cdn2.tu-tu.ru/image/pagetree_node_data/1/c0a646d13956ee1299cd3673f41607af/"
       ],
       "location": {
         "lat": 55.753215,
@@ -56,8 +56,8 @@
       "district": "Центр",
       "price": 400,
       "images": [
-        "https://example.com/image7.jpg",
-        "https://example.com/image8.jpg"
+        "https://cdn.tripster.ru/thumbs2/d5395042-b03a-11ef-893e-9a562bd5daaf.1220x600.jpeg",
+        "https://moskultura.ru/wp-content/uploads/2021/11/tretgalereya.jpeg"
       ],
       "location": {
         "lat": 55.738832,
@@ -72,8 +72,8 @@
       "district": "Северо-Восток",
       "price": 0,
       "images": [
-        "https://example.com/image9.jpg",
-        "https://example.com/image10.jpg"
+        "https://xn--80aaacfpel4cc2n3b.xn--80adxhks/blog/dostoprimechatelnosti_vdnkh_v_moskve_1.jpg",
+        "https://um.mos.ru/_next/image/?url=https%3A%2F%2Fum.mos.ru%2Fcontent%2Fiblock%2F77f%2F05.jpg&w=1920&q=75"
       ],
       "location": {
         "lat": 55.826407,
@@ -88,8 +88,8 @@
       "district": "Центр",
       "price": 0,
       "images": [
-        "https://example.com/image11.jpg",
-        "https://example.com/image12.jpg"
+        "https://kudamoscow.ru/uploads/9de799f38c68b7506ac5b09042096fda.jpg",
+        "https://www.mosgorsad.ru/events/photos/New%20Folder/1%20IMG_6738.jpg"
       ],
       "location": {
         "lat": 55.7613,
@@ -104,8 +104,8 @@
       "district": "Центр",
       "price": 500,
       "images": [
-        "https://example.com/image13.jpg",
-        "https://example.com/image14.jpg"
+        "https://cdn.tripster.ru/thumbs2/91844230-b2ad-11ed-8339-7ea21234fb5c.1220x600.jpeg",
+        "https://pohcdn.com/sites/default/files/styles/paragraph__hero_banner__hb_image__1880bp/public/hero_banner/pushkinskiy-muzey.jpg"
       ],
       "location": {
         "lat": 55.7486,
@@ -120,8 +120,8 @@
       "district": "Центр",
       "price": 700,
       "images": [
-        "https://example.com/image15.jpg",
-        "https://example.com/image16.jpg"
+        "https://kudamoscow.ru/uploads/020293890f396a8f02570ea229640410.jpg",
+        "https://0d314c86-f76b-45cc-874e-45816116a667.selcdn.net/e27e2758-3b44-4751-9ab4-4f9f4ae0f83c.jfif"
       ],
       "location": {
         "lat": 55.7622,
@@ -136,8 +136,8 @@
       "district": "Запад",
       "price": 0,
       "images": [
-        "https://example.com/image17.jpg",
-        "https://example.com/image18.jpg"
+        "https://novodev.msk.ru/wp-content/uploads/slider/cache/da9d156a449e603f725fc2cd08d03497/site_1097_0007-1000-706-20131014174525.jpg",
+        "https://um.mos.ru/_next/image/?url=https%3A%2F%2Fum.mos.ru%2Fcontent%2Fiblock%2F51e%2F%D0%BD%D0%BE%D0%B2%D0%BE%D0%B4%D0%B5%D0%B2%D0%B8%D1%87%D0%B8%D0%B9.jpg&w=1920&q=75"
       ],
       "location": {
         "lat": 55.7295,
@@ -152,8 +152,8 @@
       "district": "Юго-Восток",
       "price": 0,
       "images": [
-        "https://example.com/image19.jpg",
-        "https://example.com/image20.jpg"
+        "https://api.mgomz.ru/storage/metum/3/share/%D0%A6%D0%B5%D1%80%D0%BA%D0%BE%D0%B2%D1%8C_%D0%92%D0%BE%D0%B7%D0%BD%D0%B5%D1%81%D0%B5%D0%BD%D0%B8%D1%8F_%D0%B2_%D0%9A%D0%BE%D0%BB%D0%BE%D0%BC%D0%B5%D0%BD%D1%81%D0%BA%D0%BE%D0%BC__%D0%BB%D0%B5%D1%82%D0%BE__19_.jpg",
+        "https://s3.afisha.ru/mediastorage/d4/7f/b2e52785c72247219a2a5f187fd4.jpg"
       ],
       "location": {
         "lat": 55.6781,
@@ -168,8 +168,8 @@
       "district": "Юго-Восток",
       "price": 350,
       "images": [
-        "https://example.com/image21.jpg",
-        "https://example.com/image22.jpg"
+        "https://cdn.culture.ru/images/4d639fcf-7787-5992-89b3-2b682a74eeb0",
+        "https://kudamoscow.ru/uploads/7bb19fc9466a15f27e2395f73be19426.jpg"
       ],
       "location": {
         "lat": 55.7522,
@@ -184,8 +184,8 @@
       "district": "Центр",
       "price": 1000,
       "images": [
-        "https://example.com/image23.jpg",
-        "https://example.com/image24.jpg"
+        "https://7d9e88a8-f178-4098-bea5-48d960920605.selcdn.net/8da99009-3302-481d-8760-fd741e0d7c17/-/format/webp/-/resize/1300x/",
+        "https://moskultura.ru/wp-content/uploads/2024/02/ed82889d-19d0-4c40-960f-fd8912c61aad-scaled.jpg"
       ],
       "location": {
         "lat": 55.7601,
@@ -200,8 +200,8 @@
       "district": "Юг",
       "price": 0,
       "images": [
-        "https://example.com/image25.jpg",
-        "https://example.com/image26.jpg"
+        "https://kudamoscow.ru/uploads/1d0df0cb801644392c08349d9bfdaac4.jpg",
+        "https://parks.moscow/wp-content/uploads/2024/02/park-tsaritsyno.jpg"
       ],
       "location": {
         "lat": 55.626,
@@ -210,30 +210,14 @@
     },
     {
       "id": "14",
-      "name": "Музей изобразительных искусств имени А.С. Пушкина",
-      "description": "Один из крупнейших художественных музеев России.",
-      "category": "Культура",
-      "district": "Центр",
-      "price": 450,
-      "images": [
-        "https://example.com/image27.jpg",
-        "https://example.com/image28.jpg"
-      ],
-      "location": {
-        "lat": 55.7473,
-        "lng": 37.6006
-      }
-    },
-    {
-      "id": "15",
       "name": "Парк Победы",
       "description": "Парк, посвящённый победе в Великой Отечественной войне, с мемориалами и музеями.",
       "category": "Парк",
       "district": "Запад",
       "price": 0,
       "images": [
-        "https://example.com/image29.jpg",
-        "https://example.com/image30.jpg"
+        "https://xn--80aaacfpel4cc2n3b.xn--80adxhks/blog/dostoprimechatelnosti_parka_pobedy_na_poklonnoy_gore_0_IS.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Cadets_parade_in_Moscow_2015_28.jpg/1200px-Cadets_parade_in_Moscow_2015_28.jpg"
       ],
       "location": {
         "lat": 55.73,
@@ -244,7 +228,10 @@
   "routes": [
     {
       "name": "Гуляю по Москве",
-      "attractionIds": ["4", "11", "10", "13", "14"],
+      "attractionIds": [
+        "6",
+        "9"
+      ],
       "id": "c7df"
     }
   ]

@@ -68,6 +68,7 @@ const AttractionDetailPage: React.FC = () => {
         images={attraction.images}
         alt={attraction.name}
         width={300}
+        enlargedWidth={800}
       />
 
       <h2 className="mt-4">Локация</h2>
