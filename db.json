@@ -1,0 +1,30 @@
+{
+  "attractions": [
+    {
+      "id": 1,
+      "name": "Парк Горького",
+      "description": "Популярный городской парк с аттракционами и зонами для отдыха.",
+      "category": "Парк",
+      "district": "Центр",
+      "price": 0,
+      "images": [
+        "https://example.com/image1.jpg",
+        "https://example.com/image2.jpg"
+      ],
+      "location": { "lat": 55.751244, "lng": 37.618423 }
+    },
+    {
+      "id": 2,
+      "name": "Московский Кремль",
+      "description": "Исторический комплекс, включающий в себя несколько музеев и соборов.",
+      "category": "Историческое",
+      "district": "Центр",
+      "price": 500,
+      "images": [
+        "https://example.com/image3.jpg",
+        "https://example.com/image4.jpg"
+      ],
+      "location": { "lat": 55.751999, "lng": 37.617734 }
+    }
+  ]
+}
