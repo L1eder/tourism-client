@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { fetchAttractions, saveRoute } from "../services/api";
+import { fetchAttractions, saveRoute, fetchRoutes } from "../services/api";
 
 interface Attraction {
   id: number;
   name: string;
   location: { lat: number; lng: number };
+}
+
+interface Route {
+  id: number;
+  name: string;
+  attractionIds: number[];
 }
 
 interface RouteWidgetProps {
@@ -24,6 +30,8 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
   >({});
   const [routeName, setRouteName] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [savedRoutes, setSavedRoutes] = useState<Route[]>([]);
+  const [selectedRouteId, setSelectedRouteId] = useState<number | null>(null);
 
   useEffect(() => {
     const loadAttractions = async () => {
@@ -38,7 +46,18 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
         setError("Ошибка загрузки достопримечательностей");
       }
     };
+
+    const loadRoutes = async () => {
+      try {
+        const routes = await fetchRoutes();
+        setSavedRoutes(routes);
+      } catch {
+        setError("Ошибка загрузки сохранённых маршрутов");
+      }
+    };
+
     loadAttractions();
+    loadRoutes();
   }, []);
 
   const addAttraction = (id: number) => {
@@ -87,13 +106,53 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
       setError(null);
       alert("Маршрут сохранён");
       onSaved?.();
+      // Обновим список маршрутов после сохранения
+      const routes = await fetchRoutes();
+      setSavedRoutes(routes);
     } catch {
       setError("Ошибка при сохранении маршрута");
     }
   };
 
+  const loadRoute = (routeId: number) => {
+    const route = savedRoutes.find((r) => r.id === routeId);
+    if (route) {
+      setRouteIds(route.attractionIds);
+      setSelectedRouteId(routeId);
+      onRouteChange?.(route.attractionIds);
+    }
+  };
+
   return (
     <div>
+      <h3>Сохранённые маршруты</h3>
+      {savedRoutes.length === 0 ? (
+        <p>Нет сохранённых маршрутов</p>
+      ) : (
+        <ul>
+          {savedRoutes.map((route) => (
+            <li key={route.id}>
+              <button
+                style={{
+                  fontWeight: route.id === selectedRouteId ? "bold" : "normal",
+                  cursor: "pointer",
+                  background: "none",
+                  border: "none",
+                  textDecoration: "underline",
+                  color: "blue",
+                  padding: 0,
+                }}
+                onClick={() => loadRoute(route.id)}
+              >
+                {route.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <hr />
+
       <input
         placeholder="Имя маршрута"
         value={routeName}

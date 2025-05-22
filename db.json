@@ -1,7 +1,7 @@
 {
   "attractions": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Парк Горького",
       "description": "Популярный городской парк с аттракционами и зонами для отдыха.",
       "category": "Парк",
@@ -17,55 +17,37 @@
       }
     },
     {
-      "id": 2,
-      "name": "Красная площадь",
-      "description": "Историческая площадь в центре Москвы.",
-      "category": "Площадь",
+      "id": "2",
+      "name": "Московский Кремль",
+      "description": "Исторический комплекс, включающий в себя несколько музеев и соборов.",
+      "category": "Историческое",
       "district": "Центр",
-      "price": 0,
+      "price": 500,
       "images": [
         "https://example.com/image3.jpg",
         "https://example.com/image4.jpg"
       ],
       "location": {
-        "lat": 55.7558,
-        "lng": 37.6173
-      }
-    },
-    {
-      "id": 3,
-      "name": "Московский Кремль",
-      "description": "Исторический комплекс, включающий в себя несколько музеев и соборов.",
-      "category": "Крепость",
-      "district": "Центр",
-      "price": 500,
-      "images": [
-        "https://example.com/image5.jpg",
-        "https://example.com/image6.jpg"
-      ],
-      "location": {
-        "lat": 55.752023,
-        "lng": 37.617499
+        "lat": 55.751999,
+        "lng": 37.617734
       }
     }
   ],
   "routes": [
     {
-      "id": 1,
-      "name": "Мой маршрут",
+      "id": "505d",
+      "name": "Первый марштурик",
       "attractionIds": [
-        1,
-        2,
-        3
+        "1",
+        "2"
       ]
     },
     {
-      "id": "1538",
-      "name": "Фвы",
+      "id": "cfbd",
+      "name": "А",
       "attractionIds": [
-        3,
-        2,
-        1
+        "1",
+        "2"
       ]
     }
   ]

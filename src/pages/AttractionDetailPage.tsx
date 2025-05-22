@@ -86,9 +86,7 @@ const AttractionDetailPage: React.FC = () => {
           <Popup>{attraction.name}</Popup>
         </Marker>
       </MapContainer>
-      <button onClick={handleAddToRoute} style={{ marginTop: "10px" }}>
-        Добавить в маршрут
-      </button>
+
       <br />
       <Link to="/">Назад к списку достопримечательностей</Link>
     </div>

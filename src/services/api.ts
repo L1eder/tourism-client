@@ -15,6 +15,11 @@ export const fetchAttractionById = async (id: number) => {
   return response.data;
 };
 
+export const fetchRoutes = async () => {
+  const response = await api.get("/routes");
+  return response.data;
+};
+
 // Сохраняем маршрут
 export const saveRoute = async (route: {
   name: string;

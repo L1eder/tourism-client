@@ -25,18 +25,18 @@ const AttractionListPage: React.FC = () => {
     loadAttractions();
   }, []);
 
+  // Получаем уникальные районы и категории
+  const uniqueDistricts = Array.from(
+    new Set(attractions.map((a) => a.district))
+  ).sort();
+  const uniqueCategories = Array.from(
+    new Set(attractions.map((a) => a.category))
+  ).sort();
+
   const filteredAttractions = attractions.filter((attraction) => {
     return (
-      (searchDistrict
-        ? attraction.district
-            .toLowerCase()
-            .includes(searchDistrict.toLowerCase())
-        : true) &&
-      (searchCategory
-        ? attraction.category
-            .toLowerCase()
-            .includes(searchCategory.toLowerCase())
-        : true) &&
+      (searchDistrict ? attraction.district === searchDistrict : true) &&
+      (searchCategory ? attraction.category === searchCategory : true) &&
       (searchPrice ? attraction.price <= Number(searchPrice) : true)
     );
   });
@@ -44,27 +44,51 @@ const AttractionListPage: React.FC = () => {
   return (
     <div>
       <h1>Достопримечательности</h1>
-      <input
-        type="text"
-        placeholder="Поиск по району"
-        value={searchDistrict}
-        onChange={(e) => setSearchDistrict(e.target.value)}
-        style={{ marginRight: "10px" }}
-      />
-      <input
-        type="text"
-        placeholder="Поиск по категории"
-        value={searchCategory}
-        onChange={(e) => setSearchCategory(e.target.value)}
-        style={{ marginRight: "10px" }}
-      />
-      <input
-        type="number"
-        placeholder="Максимальная стоимость"
-        value={searchPrice}
-        onChange={(e) => setSearchPrice(e.target.value)}
-        style={{ marginRight: "10px" }}
-      />
+
+      <label>
+        Район:{" "}
+        <select
+          value={searchDistrict}
+          onChange={(e) => setSearchDistrict(e.target.value)}
+          style={{ marginRight: "10px" }}
+        >
+          <option value="">Все</option>
+          {uniqueDistricts.map((district) => (
+            <option key={district} value={district}>
+              {district}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <label>
+        Категория:{" "}
+        <select
+          value={searchCategory}
+          onChange={(e) => setSearchCategory(e.target.value)}
+          style={{ marginRight: "10px" }}
+        >
+          <option value="">Все</option>
+          {uniqueCategories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <label>
+        Максимальная стоимость:{" "}
+        <input
+          type="number"
+          placeholder="Максимальная стоимость"
+          value={searchPrice}
+          onChange={(e) => setSearchPrice(e.target.value)}
+          style={{ marginRight: "10px" }}
+          min={0}
+        />
+      </label>
+
       <ul>
         {filteredAttractions.map((attraction) => (
           <li key={attraction.id}>
