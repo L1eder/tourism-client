@@ -3,8 +3,9 @@ import { useParams, Link } from "react-router-dom";
 import { fetchAttractionById } from "../services/api";
 import ImageGallery from "../components/ImageGallery";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import "../styles/AttractionDetailPage.css"; // Импортируем стили
+import "../styles/AttractionDetailPage.css";
 
 interface Attraction {
   id: number;
@@ -59,6 +60,14 @@ const AttractionDetailPage: React.FC = () => {
       </div>
     );
 
+  const customIcon = new L.Icon({
+    iconUrl:
+      "https://s1.iconbird.com/ico/2013/9/446/w512h5121380376600FlurryGooglePlaces.png",
+    iconSize: [40, 40],
+    iconAnchor: [19, 41],
+    popupAnchor: [1, -34],
+  });
+
   return (
     <div className="container my-4">
       <h1>{attraction.name}</h1>
@@ -81,7 +90,10 @@ const AttractionDetailPage: React.FC = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors"
         />
-        <Marker position={[attraction.location.lat, attraction.location.lng]}>
+        <Marker
+          position={[attraction.location.lat, attraction.location.lng]}
+          icon={customIcon}
+        >
           <Popup>{attraction.name}</Popup>
         </Marker>
       </MapContainer>

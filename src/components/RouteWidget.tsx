@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { fetchAttractions } from "../services/api";
-import "../styles/RouteWidget.css"; // Импортируем стили
+import "../styles/RouteWidget.css";
+import L from "leaflet";
 
 interface Attraction {
   id: number;
@@ -142,6 +143,14 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
     );
   }
 
+  const customIcon = new L.Icon({
+    iconUrl:
+      "https://s1.iconbird.com/ico/2013/9/446/w512h5121380376600FlurryGooglePlaces.png",
+    iconSize: [40, 40],
+    iconAnchor: [19, 41],
+    popupAnchor: [1, -34],
+  });
+
   return (
     <div className="route-widget container mt-4">
       <h3>Создание / Редактирование маршрута</h3>
@@ -241,6 +250,7 @@ const RouteWidget: React.FC<RouteWidgetProps> = ({
             <Marker
               key={id}
               position={[attraction.location.lat, attraction.location.lng]}
+              icon={customIcon}
             >
               <Popup>{attraction.name}</Popup>
             </Marker>
