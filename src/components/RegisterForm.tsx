@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-const LoginForm: React.FC = () => {
+const RegisterForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -15,22 +15,21 @@ const LoginForm: React.FC = () => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:3001/auth/login", {
+      console.log("Отправляем данные:", { username, password });
+      await axios.post("http://localhost:3001/auth/register", {
         username,
         password,
       });
-      // Сохраняем токен из ответа сервера в localStorage
-      localStorage.setItem("token", response.data.token);
-      navigate("/"); // Перенаправляем на главную страницу после входа
+      navigate("/login");
     } catch (err: any) {
-      console.error("Ошибка при входе:", err); // Логируем ошибку для диагностики
-      setError(err.response?.data?.message || "Ошибка при входе");
+      console.error("Ошибка при регистрации:", err);
+      setError(err.response?.data?.message || "Ошибка при регистрации");
     }
   };
 
   return (
     <div style={{ maxWidth: "300px", margin: "50px auto" }}>
-      <h2>Вход</h2>
+      <h2>Регистрация</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Имя пользователя:</label>
@@ -51,13 +50,13 @@ const LoginForm: React.FC = () => {
           />
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Войти</button>
+        <button type="submit">Зарегистрироваться</button>
       </form>
       <p>
-        Нет аккаунта? <Link to="/register">Зарегистрируйтесь</Link>
+        Уже есть аккаунт? <Link to="/login">Войдите</Link>
       </p>
     </div>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

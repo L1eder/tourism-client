@@ -10,12 +10,14 @@ import AttractionDetailPage from "./pages/AttractionDetailPage";
 import MyRoutesPage from "./pages/MyRoutesPage";
 import LoginForm from "./components/LoginForm";
 import ProtectedRoute from "./components/ProtectedRoute";
+import RegisterForm from "./components/RegisterForm";
 
 const App: React.FC = () => (
   <Router>
     <Routes>
-      {/* Публичный маршрут — форма входа */}
+      {/* Публичные маршруты */}
       <Route path="/login" element={<LoginForm />} />
+      <Route path="/register" element={<RegisterForm />} />
 
       {/* Защищённые маршруты */}
       <Route element={<ProtectedRoute />}>
@@ -24,7 +26,7 @@ const App: React.FC = () => (
         <Route path="/route" element={<MyRoutesPage />} />
       </Route>
 
-      {/* Опционально: перенаправление с несуществующих путей на /login */}
+      {/* Перенаправление с несуществующих путей на /login */}
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   </Router>
