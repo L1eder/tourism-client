@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchRoutes, saveRoute } from "../services/api";
+import { fetchRoutes, saveRoute, updateRoute } from "../services/api";
 import RouteWidget from "../components/RouteWidget";
 import "../styles/MyRoutesPage.css";
 
@@ -22,14 +22,23 @@ const MyRoutesPage: React.FC = () => {
     try {
       const data = await fetchRoutes();
       setRoutes(data);
-    } catch {
-      setError("Ошибка загрузки маршрутов");
+    } catch (err) {
+      console.error("Ошибка загрузки маршрутов:", err);
+      setError(
+        "Не удалось загрузить маршруты. Проверьте соединение или войдите снова."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setError("Вы не авторизованы. Пожалуйста, войдите в систему.");
+      setLoading(false);
+      return;
+    }
     loadRoutes();
   }, []);
 
@@ -37,19 +46,20 @@ const MyRoutesPage: React.FC = () => {
     setError(null);
     try {
       if (selectedRoute) {
-        await fetch(`http://localhost:3001/routes/${selectedRoute.id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, attractionIds }),
-        });
+        await updateRoute(selectedRoute.id, { name, attractionIds });
       } else {
         await saveRoute({ name, attractionIds });
       }
       await loadRoutes();
       setSelectedRoute(null);
       setIsCreating(false);
-    } catch {
-      setError("Ошибка при сохранении маршрута");
+    } catch (err) {
+      console.error("Ошибка при сохранении маршрута:", err);
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : "Неизвестная ошибка при сохранении маршрута";
+      setError(`Ошибка: ${errorMessage}. Попробуйте снова.`);
       throw new Error("Ошибка при сохранении маршрута");
     }
   };
@@ -80,7 +90,16 @@ const MyRoutesPage: React.FC = () => {
   return (
     <div className="container my-4">
       <h1>Мои маршруты</h1>
-      {error && <p className="text-danger">{error}</p>}
+      {error && (
+        <div className="alert alert-danger d-flex justify-content-between align-items-center">
+          <span>{error}</span>
+          {!error.includes("авторизованы") && (
+            <button onClick={loadRoutes} className="btn btn-sm btn-danger">
+              Повторить попытку
+            </button>
+          )}
+        </div>
+      )}
 
       {!selectedRoute && !isCreating && (
         <>
