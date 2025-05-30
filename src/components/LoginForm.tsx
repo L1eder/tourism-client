@@ -23,39 +23,65 @@ const LoginForm: React.FC = () => {
       localStorage.setItem("token", response.data.token);
       navigate("/"); // Перенаправляем на главную страницу после входа
     } catch (err: any) {
-      console.error("Ошибка при входе:", err); // Логируем ошибку для диагностики
+      console.error("Ошибка при входе:", err);
       setError(err.response?.data?.message || "Ошибка при входе");
     }
   };
 
   return (
-    <div style={{ maxWidth: "300px", margin: "50px auto" }}>
-      <h2>Вход</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Имя пользователя:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+      <div
+        className="card shadow-lg p-4"
+        style={{ maxWidth: "400px", width: "100%" }}
+      >
+        <div className="card-body">
+          <h2 className="text-center mb-4">Вход</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="username" className="form-label">
+                Имя пользователя:
+              </label>
+              <input
+                type="text"
+                id="username"
+                className="form-control"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                placeholder="Введите имя пользователя"
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">
+                Пароль:
+              </label>
+              <input
+                type="password"
+                id="password"
+                className="form-control"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                placeholder="Введите пароль"
+              />
+            </div>
+            {error && (
+              <div className="alert alert-danger" role="alert">
+                {error}
+              </div>
+            )}
+            <button type="submit" className="btn btn-primary w-100 mt-3">
+              Войти
+            </button>
+          </form>
+          <p className="text-center mt-3">
+            Нет аккаунта?{" "}
+            <Link to="/register" className="text-primary">
+              Зарегистрируйтесь
+            </Link>
+          </p>
         </div>
-        <div>
-          <label>Пароль:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Войти</button>
-      </form>
-      <p>
-        Нет аккаунта? <Link to="/register">Зарегистрируйтесь</Link>
-      </p>
+      </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchAttractions } from "../services/api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/AttractionListPage.css";
 
 interface Attraction {
@@ -19,6 +19,8 @@ const AttractionListPage: React.FC = () => {
   const [searchPrice, setSearchPrice] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false); // Состояние для модального окна
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadAttractions = async () => {
@@ -35,6 +37,23 @@ const AttractionListPage: React.FC = () => {
     };
     loadAttractions();
   }, []);
+
+  // Функция для открытия модального окна
+  const handleLogoutClick = () => {
+    setShowModal(true);
+  };
+
+  // Функция для подтверждения выхода
+  const confirmLogout = () => {
+    localStorage.removeItem("token"); // Удаляем токен
+    setShowModal(false); // Закрываем модальное окно
+    navigate("/login"); // Перенаправляем на страницу входа
+  };
+
+  // Функция для отмены выхода
+  const cancelLogout = () => {
+    setShowModal(false); // Просто закрываем модальное окно
+  };
 
   const uniqueDistricts = Array.from(
     new Set(attractions.map((a) => a.district))
@@ -68,7 +87,54 @@ const AttractionListPage: React.FC = () => {
 
   return (
     <div className="container my-4">
-      <h1>Достопримечательности</h1>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h1>Достопримечательности</h1>
+        <button className="btn btn-danger" onClick={handleLogoutClick}>
+          Выйти
+        </button>
+      </div>
+
+      {/* Модальное окно для подтверждения выхода */}
+      <div
+        className={`modal fade ${showModal ? "show" : ""}`}
+        style={{ display: showModal ? "block" : "none" }}
+        tabIndex={-1}
+        role="dialog"
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Подтверждение выхода</h5>
+              <button
+                type="button"
+                className="btn-close"
+                onClick={cancelLogout}
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <p>Вы уверены, что хотите выйти из аккаунта?</p>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={cancelLogout}
+              >
+                Отмена
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={confirmLogout}
+              >
+                Выйти
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {showModal && <div className="modal-backdrop fade show"></div>}
 
       <div className="mb-3 d-flex flex-wrap gap-3 align-items-center">
         <label>
