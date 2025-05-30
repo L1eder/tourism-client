@@ -9,13 +9,14 @@ api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`; // Исправлено: используем обратные кавычки
     }
     return config;
   },
   (error) => Promise.reject(error)
 );
 
+// Остальной код остается без изменений
 export const fetchAttractions = async () => {
   const response = await api.get("/attractions");
   return response.data;
@@ -72,3 +73,5 @@ export const updateRoute = async (
     throw error;
   }
 };
+
+export default api;

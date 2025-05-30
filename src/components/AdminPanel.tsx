@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../services/api"; // Укажите правильный путь к вашему файлу api.ts
 import { useNavigate } from "react-router-dom";
 
 interface Route {
@@ -18,7 +18,9 @@ const AdminPanel: React.FC = () => {
   useEffect(() => {
     const fetchRoutes = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/admin/routes");
+        const token = localStorage.getItem("token");
+        console.log("Token before request:", token); // Отладка: проверяем токен
+        const response = await api.get("/admin/routes"); // Используем api, а не axios
         setRoutes(response.data);
         setLoading(false);
       } catch (err: any) {
@@ -47,37 +49,30 @@ const AdminPanel: React.FC = () => {
 
   return (
     <div className="container mt-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>Админская панель</h2>
-        <button className="btn btn-danger" onClick={handleLogout}>
-          Выйти
-        </button>
-      </div>
-      <h3>Маршруты всех пользователей</h3>
-      {routes.length === 0 ? (
-        <p>Маршрутов пока нет.</p>
-      ) : (
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Название маршрута</th>
-              <th>Пользователь</th>
-              <th>Достопримечательности (ID)</th>
+      <h1>Админская панель</h1>
+      <button onClick={handleLogout} className="btn btn-danger mb-3">
+        Выйти
+      </button>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Достопримечательности</th>
+            <th>Пользователь</th>
+          </tr>
+        </thead>
+        <tbody>
+          {routes.map((route) => (
+            <tr key={route.id}>
+              <td>{route.id}</td>
+              <td>{route.name}</td>
+              <td>{route.attraction_ids.join(", ")}</td>
+              <td>{route.username}</td>
             </tr>
-          </thead>
-          <tbody>
-            {routes.map((route) => (
-              <tr key={route.id}>
-                <td>{route.id}</td>
-                <td>{route.name}</td>
-                <td>{route.username}</td>
-                <td>{route.attraction_ids.join(", ")}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
