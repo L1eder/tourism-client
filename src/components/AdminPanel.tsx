@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import api from "../services/api"; // Укажите правильный путь к вашему файлу api.ts
+import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 interface Route {
@@ -19,8 +19,8 @@ const AdminPanel: React.FC = () => {
     const fetchRoutes = async () => {
       try {
         const token = localStorage.getItem("token");
-        console.log("Token before request:", token); // Отладка: проверяем токен
-        const response = await api.get("/admin/routes"); // Используем api, а не axios
+        console.log("Token before request:", token);
+        const response = await api.get("/admin/routes");
         setRoutes(response.data);
         setLoading(false);
       } catch (err: any) {

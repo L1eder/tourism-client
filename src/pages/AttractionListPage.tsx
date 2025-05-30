@@ -38,21 +38,18 @@ const AttractionListPage: React.FC = () => {
     loadAttractions();
   }, []);
 
-  // Функция для открытия модального окна
   const handleLogoutClick = () => {
     setShowModal(true);
   };
 
-  // Функция для подтверждения выхода
   const confirmLogout = () => {
-    localStorage.removeItem("token"); // Удаляем токен
-    setShowModal(false); // Закрываем модальное окно
-    navigate("/login"); // Перенаправляем на страницу входа
+    localStorage.removeItem("token");
+    setShowModal(false);
+    navigate("/login");
   };
 
-  // Функция для отмены выхода
   const cancelLogout = () => {
-    setShowModal(false); // Просто закрываем модальное окно
+    setShowModal(false);
   };
 
   const uniqueDistricts = Array.from(
