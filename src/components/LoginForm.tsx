@@ -19,9 +19,13 @@ const LoginForm: React.FC = () => {
         username,
         password,
       });
-      // Сохраняем токен из ответа сервера в localStorage
       localStorage.setItem("token", response.data.token);
-      navigate("/"); // Перенаправляем на главную страницу после входа
+      localStorage.setItem("role", response.data.role); // Сохраняем роль
+      if (response.data.role === "admin") {
+        navigate("/admin"); // Перенаправляем админа на админскую панель
+      } else {
+        navigate("/"); // Обычных пользователей на главную
+      }
     } catch (err: any) {
       console.error("Ошибка при входе:", err);
       setError(err.response?.data?.message || "Ошибка при входе");

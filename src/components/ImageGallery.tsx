@@ -4,8 +4,8 @@ import "../styles/ImageGallery.css";
 interface ImageGalleryProps {
   images: string[];
   alt?: string;
-  width?: number; // маленький размер для миниатюр
-  enlargedWidth?: number; // размер для увеличенного изображения
+  width?: number;
+  enlargedWidth?: number;
 }
 
 const ImageGallery: React.FC<ImageGalleryProps> = ({
